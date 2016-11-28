@@ -16,6 +16,16 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var colorSquare: UIView!
     
+    var currentColor: UIColor {
+        get {
+            let red = redSlider.value
+            let green = greenSlider.value
+            let blue = blueSlider.value
+            
+            return UIColor(colorLiteralRed: red, green: green, blue: blue, alpha: 1)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,14 +39,17 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let viewController = segue.destination
+        if segue.identifier == "openColor" {
+            viewController.view.backgroundColor = currentColor
+        }
+    }
 
     @IBAction func updateBackgroundColor() {
         
-        let red = redSlider.value
-        let green = greenSlider.value
-        let blue = blueSlider.value
-        
-        colorSquare.backgroundColor = UIColor(colorLiteralRed: red, green: green, blue: blue, alpha: 1)
+        colorSquare.backgroundColor = currentColor
     }
 
 }
