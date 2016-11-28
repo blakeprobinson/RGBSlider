@@ -32,6 +32,10 @@ class ViewController: UIViewController {
         //Aren't these too view related to be in the view controller?
         colorSquare.layer.borderColor = UIColor.black.cgColor
         colorSquare.layer.borderWidth = 1
+        let defaults = UserDefaults.standard
+        redSlider.value = defaults.float(forKey: "red")
+        greenSlider.value = defaults.float(forKey: "green")
+        blueSlider.value = defaults.float(forKey: "blue")
         updateBackgroundColor()
     }
 
@@ -50,6 +54,11 @@ class ViewController: UIViewController {
     @IBAction func updateBackgroundColor() {
         
         colorSquare.backgroundColor = currentColor
+        let defaults = UserDefaults.standard
+        defaults.set(redSlider.value, forKey:"red")
+        defaults.set(greenSlider.value, forKey:"green")
+        defaults.set(blueSlider.value, forKey: "blue")
+        defaults.synchronize()
     }
 
 }
